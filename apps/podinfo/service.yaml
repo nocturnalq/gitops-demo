@@ -1,0 +1,14 @@
+# NodePort 30098 проброшен kind-ом на localhost:9898 (см. kind-config.yaml в курсе).
+apiVersion: v1
+kind: Service
+metadata:
+  name: podinfo
+  namespace: podinfo
+spec:
+  type: NodePort
+  selector:
+    app: podinfo
+  ports:
+    - port: 9898
+      targetPort: 9898
+      nodePort: 30098

@@ -1,0 +1,28 @@
+# Временный эксперимент. Удалите этот файл из git - Flux удалит его и из кластера.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podinfo-experiment
+  namespace: podinfo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: podinfo-experiment
+  template:
+    metadata:
+      labels:
+        app: podinfo-experiment
+    spec:
+      containers:
+        - name: podinfo
+          image: ghcr.io/stefanprodan/podinfo:6.17.0
+          env:
+            - name: PODINFO_UI_MESSAGE
+              value: "Временный эксперимент"
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              memory: 64Mi
